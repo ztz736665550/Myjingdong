@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:id="@+id/rwm_01"
+            android:layout_width="50dp"
+            android:layout_height="70dp"
+            android:padding="13dp"
+            android:src="@drawable/erweima" />
+
+
+        <LinearLayout
+            android:id="@+id/editText"
+            android:layout_marginTop="20dp"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/yan"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/sousuo" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="3dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:lines="1"
+                android:text="运动户外超级品牌类日 跨店铺跨店铺"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/tou3" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/xx"
+            android:layout_width="50dp"
+            android:layout_height="70dp"
+            android:padding="13dp"
+            android:src="@drawable/xinxi" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_below="@+id/line">
+        <android.support.v7.widget.RecyclerView
+            android:background="#e9e9e9"
+            android:id="@+id/fenlei_recyclerview_left"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/fenlei_recyclerview_right"
+            android:background="#e7e7e7"
+            android:layout_width="0dp"
+            android:layout_weight="8"
+            android:layout_marginLeft="5dp"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:id="@+id/rwm_01"
+            android:layout_width="50dp"
+            android:layout_height="70dp"
+            android:padding="13dp"
+            android:src="@drawable/erweima" />
+
+
+        <LinearLayout
+            android:id="@+id/editText"
+            android:layout_marginTop="20dp"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:background="@drawable/yan"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/sousuo" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="3dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:lines="1"
+                android:text="运动户外超级品牌类日 跨店铺跨店铺"
+                android:textSize="15sp" />
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginRight="5dp"
+                android:src="@drawable/tou3" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/xx"
+            android:layout_width="50dp"
+            android:layout_height="70dp"
+            android:padding="13dp"
+            android:src="@drawable/xinxi" />
+
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/line"
+        android:id="@+id/recyclerview_shouye"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>
