@@ -112,7 +112,7 @@ public class ShouyeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     Glide.with(context).load(path).placeholder(R.mipmap.lunbotumoren).into(imageView);
                 }
             });
-            ((viewHolderBanner) holder).banner.setImages(image);
+            ((viewHolderBanner) holder).banner.setImages(images);
             //开始启动轮播
             ((viewHolderBanner) holder).banner.start();
         } else if (holder instanceof viewpagerviewholder) {

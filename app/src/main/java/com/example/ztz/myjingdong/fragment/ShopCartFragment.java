@@ -60,6 +60,18 @@ public class ShopCartFragment extends Fragment implements ShopViewCallBack {
         presenter.getData();
         return view;
     }
+    /*@Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden){
+            //Fragment隐藏时调用
+
+        }else {
+            //Fragment显示时调用
+            presenter.getData();
+        }
+
+    }*/
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -78,25 +90,27 @@ public class ShopCartFragment extends Fragment implements ShopViewCallBack {
                 thirdTotalprice.setText(total);
             }
         });
-        shopcartSpring.setHeader(new DefaultHeader(getContext()));
+        /*shopcartSpring.setHeader(new DefaultHeader(getContext()));
         shopcartSpring.setFooter(new DefaultFooter(getContext()));
         shopcartSpring.setListener(new SpringView.OnFreshListener() {
             @Override
             public void onRefresh() {
-                presenter.getData();
-                shopcartSpring.onFinishFreshAndLoad();
+
+
             }
             @Override
             public void onLoadmore() {
                 shopcartSpring.onFinishFreshAndLoad();
             }
-        });
+        });*/
     }
 
     @Override
     public void success(ShopBean bean) {
         //向适配器添加数据
-        adapter.add(bean);
+        if (bean != null) {
+            adapter.add(bean);
+        }
     }
 
     @Override

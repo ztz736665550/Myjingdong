@@ -2,6 +2,7 @@ package com.example.ztz.myjingdong.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +10,15 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.ztz.myjingdong.R;
+import com.example.ztz.myjingdong.bean.DeleteShopCart;
 import com.example.ztz.myjingdong.bean.ShopBean;
 import com.example.ztz.myjingdong.customview.PlusView;
+import com.example.ztz.myjingdong.presenter.DeleteShopCartPresenter;
+import com.example.ztz.myjingdong.view.DeleteShopCartViewCall;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
@@ -33,7 +38,7 @@ import butterknife.ButterKnife;
  * Created by ztz on 2017/12/11.
  */
 
-public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.IViewHolder> {
+public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.IViewHolder> implements DeleteShopCartViewCall{
 
     private Context context;
     private List<ShopBean.DataBean.ListBean> list;
@@ -47,22 +52,25 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.IViewHolder> {
      * @param bean
      */
     public void add(ShopBean bean) {
-        if (this.list == null) {
-            this.list = new ArrayList<>();
+if (bean.getData().size()==0){
+    Toast.makeText(context,"购物车是空的",Toast.LENGTH_LONG).show();
+}else {
+    if (this.list == null) {
+
+        this.list = new ArrayList<>();
+    }
+    // 遍历商家
+    for (ShopBean.DataBean shop : bean.getData()) {
+        map.put(shop.getSellerid(),shop.getSellerName());
+        // 遍历商品
+        for (int i = 0; i < shop.getList().size(); i++) {
+            this.list.add(shop.getList().get(i));
         }
+    }
 
-        // 遍历商家
-        for (ShopBean.DataBean shop : bean.getData()) {
-            map.put(shop.getSellerid(),shop.getSellerName());
-            // 遍历商品
-            for (int i = 0; i < shop.getList().size(); i++) {
-                this.list.add(shop.getList().get(i));
-            }
-        }
-
-        setFirst(this.list);
-
-        notifyDataSetChanged();
+    setFirst(this.list);
+    notifyDataSetChanged();
+}
     }
 
     /**
@@ -169,11 +177,14 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.IViewHolder> {
         holder.item_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                String pid = list.get(position).getPid()+"";
+                Log.i("----", "onClick: "+position+"");
+                if (pid!= null){
+                    DeleteShopCartPresenter deleteShopCartPresenter = new DeleteShopCartPresenter(ShopAdapter.this);
+                    deleteShopCartPresenter.getData(pid);
+                }
                 list.remove(position);
-
                 setFirst(list);
-
                 notifyDataSetChanged();
                 sum(list);
 
@@ -229,6 +240,20 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.IViewHolder> {
         notifyDataSetChanged();
         sum(list);
 
+    }
+
+    /**
+     * 删除购物车的数据返回
+     * @param deleteShopCart
+     */
+    @Override
+    public void success(DeleteShopCart deleteShopCart) {
+        Toast.makeText(context,deleteShopCart.getMsg().toString(),Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void failed(String e) {
+        Log.i("-------", "failed: "+e);
     }
 
     static class IViewHolder extends RecyclerView.ViewHolder {

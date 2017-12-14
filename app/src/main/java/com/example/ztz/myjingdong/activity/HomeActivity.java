@@ -50,6 +50,7 @@ public class HomeActivity extends AppCompatActivity  {
     private ShopCartFragment shopCartFragment;
     private MyFragment myFragment;
     private FragmentManager fragmentManager;
+    private FragmentTransaction fragmentTransaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,61 +72,67 @@ public class HomeActivity extends AppCompatActivity  {
                 .add(R.id.framelayout, shouyeFragment)
                 .add(R.id.framelayout, fenleiFragment)
                 .add(R.id.framelayout, faxianFragment)
-                .add(R.id.framelayout, shopCartFragment)
+                //.add(R.id.framelayout, shopCartFragment)
                 .add(R.id.framelayout, myFragment);
 
-        fragmentTransaction.hide(shouyeFragment).hide(fenleiFragment).hide(faxianFragment).hide(shopCartFragment)
-                .show(myFragment).commit();
+        fragmentTransaction
+                .hide(shouyeFragment)
+                .hide(fenleiFragment)
+                .hide(faxianFragment)
+                //.hide(shopCartFragment)
+                .show(myFragment)
+                .commit();
     }
     @OnClick({R.id.radio_btn_shouye, R.id.radio_btn_fenlei, R.id.radio_btn_faxian, R.id.radio_btn_shopcart,R.id.radio_btn_my})
     public void onClick(View view) {
 
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
         switch (view.getId()) {
             case R.id.radio_btn_shouye:
                 fragmentTransaction.show(shouyeFragment);
                 fragmentTransaction.hide(fenleiFragment);
                 fragmentTransaction.hide(faxianFragment);
-                fragmentTransaction.hide(shopCartFragment);
+                fragmentTransaction.remove(shopCartFragment);
                 fragmentTransaction.hide(myFragment);
-                fragmentTransaction.commitAllowingStateLoss();
+                fragmentTransaction.commit();
                 break;
             case R.id.radio_btn_fenlei:
 
                  fragmentTransaction.hide(shouyeFragment);
                 fragmentTransaction.show(fenleiFragment);
                 fragmentTransaction.hide(faxianFragment);
-                fragmentTransaction.hide(shopCartFragment);
+                fragmentTransaction.remove(shopCartFragment);
                 fragmentTransaction.hide(myFragment);
-                fragmentTransaction.commitAllowingStateLoss();
+                fragmentTransaction.commit();
                 break;
             case R.id.radio_btn_faxian:
 
                 fragmentTransaction.hide(shouyeFragment);
                 fragmentTransaction.hide(fenleiFragment);
                 fragmentTransaction.show(faxianFragment);
-                fragmentTransaction.hide(shopCartFragment);
+                fragmentTransaction.remove(shopCartFragment);
                 fragmentTransaction.hide(myFragment);
-                fragmentTransaction.commitAllowingStateLoss();
+                fragmentTransaction.commit();
                 break;
             case R.id.radio_btn_shopcart:
 
+                fragmentTransaction.add(R.id.framelayout,shopCartFragment);
+                fragmentTransaction.show(shopCartFragment);
                 fragmentTransaction.hide(shouyeFragment);
                 fragmentTransaction.hide(fenleiFragment);
                 fragmentTransaction.hide(faxianFragment);
-                fragmentTransaction.show(shopCartFragment);
                 fragmentTransaction.hide(myFragment);
-                fragmentTransaction.commitAllowingStateLoss();
+                fragmentTransaction.commit();
                 break;
             case R.id.radio_btn_my:
 
                 fragmentTransaction.hide(shouyeFragment);
                 fragmentTransaction.hide(fenleiFragment);
                 fragmentTransaction.hide(faxianFragment);
-                fragmentTransaction.hide(shopCartFragment);
+                fragmentTransaction.remove(shopCartFragment);
                 fragmentTransaction.show(myFragment);
-                fragmentTransaction.commitAllowingStateLoss();
+                fragmentTransaction.commit();
                 break;
         }
     }

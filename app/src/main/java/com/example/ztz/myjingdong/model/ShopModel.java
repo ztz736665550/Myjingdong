@@ -30,7 +30,7 @@ public class ShopModel {
                         shopModelCallBack.failure(throwable.getMessage());
                     }
                 });*/
-        OkhttpUtils.getInstance().asy(null, "http://120.27.23.105/product/getCarts?uid=111", new AbstractUiCallBack<ShopBean>() {
+        OkhttpUtils.getInstance().asy(null, "http://120.27.23.105/product/getCarts?uid=91", new AbstractUiCallBack<ShopBean>() {
             @Override
             public void success(ShopBean bean) {
                 shopModelCallBack.success(bean);

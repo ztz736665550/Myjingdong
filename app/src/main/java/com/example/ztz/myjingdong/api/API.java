@@ -1,6 +1,7 @@
 package com.example.ztz.myjingdong.api;
 
 import com.example.ztz.myjingdong.bean.AddShopCartBean;
+import com.example.ztz.myjingdong.bean.DeleteShopCart;
 import com.example.ztz.myjingdong.bean.FenleileftBean;
 import com.example.ztz.myjingdong.bean.FenleiziBean;
 import com.example.ztz.myjingdong.bean.LoginBean;
@@ -71,4 +72,8 @@ public interface API {
 
     @GET("product/addCart")
     Observable<AddShopCartBean> addCart(@Query("uid") String uid,@Query("pid") String pid ,@Query("source") String source);
+
+    @GET("product/deleteCart")
+    Observable<DeleteShopCart> deletecart(@Query("uid") String uid,@Query("pid") String pid,@Query("source") String source);
+
 }
