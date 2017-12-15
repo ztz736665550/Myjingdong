@@ -21,7 +21,8 @@ public class LoggingInterceptor implements Interceptor {
         Response response = null;
         Request requestProcess = null ;
         if("GET".equals(request.method())){
-            String url =  request.url().toString() + "&source=android";
+            String url =  request.url().toString() ;
+            //+ "&source=android"
             Request.Builder builder =  request.newBuilder() ;
             builder.get().url(url);
             requestProcess =  builder.build();

@@ -8,6 +8,7 @@ import java.util.List;
 
 public class ShouyeGoodsBean {
 
+
     /**
      * code : 200
      * msg : success

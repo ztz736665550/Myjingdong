@@ -52,11 +52,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.IViewHolder> i
      * @param bean
      */
     public void add(ShopBean bean) {
-if (bean.getData().size()==0){
-    Toast.makeText(context,"购物车是空的",Toast.LENGTH_LONG).show();
-}else {
     if (this.list == null) {
-
         this.list = new ArrayList<>();
     }
     // 遍历商家
@@ -71,7 +67,6 @@ if (bean.getData().size()==0){
     setFirst(this.list);
     notifyDataSetChanged();
 }
-    }
 
     /**
      * 设置数据源， 控制显示商家

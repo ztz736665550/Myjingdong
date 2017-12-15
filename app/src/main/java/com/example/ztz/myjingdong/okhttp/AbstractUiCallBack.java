@@ -15,7 +15,9 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 /**
- * Created by ztz on 2017/12/11.
+ * Created by muhanxi on 17/11/10.
+ *
+ *  * Okhttp 单例 范型的封装
  */
 
 public  abstract  class AbstractUiCallBack<T> implements Callback {
@@ -41,10 +43,10 @@ public  abstract  class AbstractUiCallBack<T> implements Callback {
 
 
         //  得到的是一个 AbstractUiCallBack<T> 的Type
-        Type type =  getClass().getGenericSuperclass() ;
+       Type type =  getClass().getGenericSuperclass() ;
 
         // 得到的是T的实际Type
-        Type [] arr =  ((ParameterizedType)type).getActualTypeArguments() ;
+       Type [] arr =  ((ParameterizedType)type).getActualTypeArguments() ;
 
         clazz = (Class) arr[0] ;
 

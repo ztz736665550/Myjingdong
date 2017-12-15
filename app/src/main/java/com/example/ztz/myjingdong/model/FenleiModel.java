@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.ztz.myjingdong.application.MyApplication;
 import com.example.ztz.myjingdong.bean.FenleileftBean;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -16,6 +17,7 @@ public class FenleiModel {
     public void getData(final FenleiModelCallBack fenleiModelCallBack) {
         MyApplication.api.getfenlei()
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<FenleileftBean>() {
                     @Override
                     public void accept(FenleileftBean fenleileftBean) throws Exception {

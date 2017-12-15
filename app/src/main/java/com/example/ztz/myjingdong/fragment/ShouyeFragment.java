@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,19 +57,18 @@ public class ShouyeFragment extends Fragment implements LunbotuViewCallBack, Sho
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragmentshouye, null, false);
         unbinder = ButterKnife.bind(this, view);
-        LunbotuPresenter lunbotuPresenter = new LunbotuPresenter(this);
-        lunbotuPresenter.getData();
+        recyclerviewShouye.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         ShouyeGoodsPresenter shouyeGoodsPresenter = new ShouyeGoodsPresenter(this);
         shouyeGoodsPresenter.getGoods();
-        recyclerviewShouye.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        shouyeRecyclerAdapter = new ShouyeRecyclerAdapter(getContext(), getChildFragmentManager());
-        recyclerviewShouye.setAdapter(shouyeRecyclerAdapter);
+        LunbotuPresenter lunbotuPresenter = new LunbotuPresenter(this);
+        lunbotuPresenter.getData();
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         /**
          * 点击进行搜索
          */
@@ -115,10 +115,13 @@ public class ShouyeFragment extends Fragment implements LunbotuViewCallBack, Sho
      */
     @Override
     public void Success(LunBoTuBean lunBoTuBean) {
+        Log.i("-------", "Success: "+lunBoTuBean.getMsg()+"shouye");
         if (lunBoTuBean != null) {
             List<LunBoTuBean.DataBean> data = lunBoTuBean.getData();
             LunBoTuBean.TuijianBean tuijian = lunBoTuBean.getTuijian();
-            shouyeRecyclerAdapter.addData(data,tuijian);
+            //shouyeRecyclerAdapter.addData();
+            shouyeRecyclerAdapter = new ShouyeRecyclerAdapter(getContext(), getChildFragmentManager(),data,tuijian);
+            recyclerviewShouye.setAdapter(shouyeRecyclerAdapter);
         }
     }
 
@@ -128,16 +131,20 @@ public class ShouyeFragment extends Fragment implements LunbotuViewCallBack, Sho
 
     /**
      * 首页下方商品多条目
-     *
      * @param shouyeGoodsBean
      */
     @Override
     public void successful(ShouyeGoodsBean shouyeGoodsBean) {
-        List<ShouyeGoodsBean.DataBean.SubjectsBean> subjects = shouyeGoodsBean.getData().getSubjects();
-        shouyeRecyclerAdapter.addGoods(subjects);
+        if (shouyeGoodsBean != null) {
+            List<ShouyeGoodsBean.DataBean.SubjectsBean> subjects = shouyeGoodsBean.getData().getSubjects();
+            Log.i("-----", "failed:"+"goods"+shouyeGoodsBean.getData().getDefaultGoodsList().get(1).getGoods_name());
+            shouyeRecyclerAdapter.addGoods(subjects);
+            shouyeRecyclerAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
     public void failed(String e) {
+        Log.i("-----", "failed: "+"商品页面无数据"+e.toString());
     }
 }

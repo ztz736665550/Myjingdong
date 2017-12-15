@@ -3,6 +3,7 @@ package com.example.ztz.myjingdong.model;
 import com.example.ztz.myjingdong.application.MyApplication;
 import com.example.ztz.myjingdong.bean.ShouyeWebBean;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -14,6 +15,7 @@ public class ShouyeaddShopWebModel {
     public void getData(String id, final ShouyeaddcartWebModelCallBack shouyeaddcartWebModelCallBack) {
         MyApplication.api.getWebBean(id,"android")
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<ShouyeWebBean>() {
                     @Override
                     public void accept(ShouyeWebBean shouyeWebBean) throws Exception {

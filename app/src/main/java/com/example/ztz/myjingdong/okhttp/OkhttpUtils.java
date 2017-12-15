@@ -12,10 +12,12 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 
 /**
- * Created by ztz on 2017/12/11.
+ *
+ * Okhttp 单例 范型的封装
  */
 
 public class OkhttpUtils {
+
     private static OkhttpUtils okhttpUtils = null ;
 
     private OkhttpUtils(){
@@ -30,7 +32,6 @@ public class OkhttpUtils {
                     .readTimeout(20, TimeUnit.SECONDS)
                     .writeTimeout(20,TimeUnit.SECONDS)
                     .connectTimeout(20,TimeUnit.SECONDS)
-                    //添加拦截器
                     .addInterceptor(new LoggingInterceptor())
                     .build();
         }
@@ -42,17 +43,10 @@ public class OkhttpUtils {
     private static OkHttpClient client ;
 
 
-    /**
-     * 发起异步请求
-     * @param params
-     * @param url
-     * @param callBack
-     */
-    public void asy(Map<String,String> params, String url, AbstractUiCallBack callBack){
+    public void asy(Map<String,String> params,String url,AbstractUiCallBack callBack){
         Request request = null ;
 
         if(params != null){
-            // post 请求
             FormBody.Builder builder = new FormBody.Builder() ;
             for(Map.Entry<String,String> entry : params.entrySet()){
                 builder.add(entry.getKey(),entry.getValue());
@@ -63,7 +57,6 @@ public class OkhttpUtils {
                     .post(body)
                     .build();
         } else {
-            // get 请求
             request = new Request.Builder()
                     .url(url)
                     .build();
@@ -78,7 +71,7 @@ public class OkhttpUtils {
     private static final MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
 
 
-    public static void postFile(Map<String,String> map, String url, File file, AbstractUiCallBack callBack){
+    public static void postFile(Map<String,String> map, String url, File file,AbstractUiCallBack callBack){
 
         String [] array =  file.getAbsolutePath().split("\\/");
 
@@ -104,6 +97,11 @@ public class OkhttpUtils {
 
 
     }
+
+
+
+
+
 
 
 

@@ -8,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,36 +40,42 @@ import butterknife.ButterKnife;
  */
 
 public class ShouyeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    public static Context context;
-    ArrayList<String> images = new ArrayList<>();
-    private FragmentManager supportFragmentManager;
-    public ShouyeRecyclerAdapter(Context context, FragmentManager supportFragmentManager) {
-        this.context = context;
-        this.supportFragmentManager = supportFragmentManager;
-    }
 
+    ArrayList<String> images = new ArrayList<>();
+    public static Context context;
+    private FragmentManager supportFragmentManager;
     private List<LunBoTuBean.DataBean> data;
     private LunBoTuBean.TuijianBean tuijian;
-    public void addData(List<LunBoTuBean.DataBean> data, LunBoTuBean.TuijianBean tuijian) {
+    public ShouyeRecyclerAdapter(Context context, FragmentManager supportFragmentManager, List<LunBoTuBean.DataBean> data, LunBoTuBean.TuijianBean tuijian) {
+        this.context = context;
+        this.supportFragmentManager = supportFragmentManager;
         this.data = data;
         this.tuijian = tuijian;
         for (int i = 0; i < data.size(); i++) {
             images.add(data.get(i).getIcon());
         }
-        notifyDataSetChanged();
     }
-
     /**
      * 首页goods商品
      * @param subjects
      */
     private List<ShouyeGoodsBean.DataBean.SubjectsBean> subjects;
-
     public void addGoods(List<ShouyeGoodsBean.DataBean.SubjectsBean> subjects) {
+        Log.i("----", "addGoods: "+"商品页面可显示");
         this.subjects = subjects;
         notifyDataSetChanged();
     }
 
+    /*private List<LunBoTuBean.DataBean> data;
+    private LunBoTuBean.TuijianBean tuijian;
+    public void addData(List<LunBoTuBean.DataBean> data, LunBoTuBean.TuijianBean tuijian) {*//*
+        //this.data = data;
+       // this.tuijian = tuijian;
+        for (int i = 0; i < data.size(); i++) {
+            images.add(data.get(i).getIcon());
+        }
+        //notifyDataSetChanged();
+   // }*/
     @Override
     public int getItemViewType(int position) {
         if (position == 0) {
@@ -100,12 +107,6 @@ public class ShouyeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof viewHolderBanner) {
-            //设置图片集合
-            ArrayList<String> image = new ArrayList<>();
-            image.add("https://image.yunifang.com/yunifang/images/goods/temp/171011162655217457875119759.jpg");
-            image.add("https://image.yunifang.com/yunifang/images/goods/temp/17051609265319705925918251.jpg");
-            image.add(" https://image.yunifang.com/yunifang/images/goods/temp/17051609349138679665088294.jpg");
-            image.add(" https://image.yunifang.com/yunifang/images/goods/temp/17051609348383766880399479.jpg");
             ((viewHolderBanner) holder).banner.setImageLoader(new ImageLoader() {
                 @Override
                 public void displayImage(Context context, Object path, ImageView imageView) {

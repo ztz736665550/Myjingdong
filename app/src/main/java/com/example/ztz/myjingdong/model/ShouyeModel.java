@@ -3,6 +3,7 @@ package com.example.ztz.myjingdong.model;
 import com.example.ztz.myjingdong.application.MyApplication;
 import com.example.ztz.myjingdong.bean.ShouyeGridBean;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -14,6 +15,7 @@ public class ShouyeModel {
     public void getData(final ShouyeModelCallBack shouyeModelCallBack) {
         MyApplication.api.getBean()
                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<ShouyeGridBean>() {
                     @Override
                     public void accept(ShouyeGridBean shouyeGridBean) throws Exception {

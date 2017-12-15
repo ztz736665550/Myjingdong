@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -61,20 +62,23 @@ public class FenleiFragment extends Fragment implements FenleiviewCallBack, Fenl
         View view = inflater.inflate(R.layout.fragmentfenlei, container, false);
 
         unbinder = ButterKnife.bind(this, view);
-        fenleiPresenter = new FenleiPresenter(this);
-        fenleiPresenter.getData();
-
-        fenleiZiPresenter = new FenleiZiPresenter(this);
-        fenleiZiPresenter.getZiData("1");
-
         fenleiRecyclerviewLeft.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         fenleiRecyclerviewLeft.addItemDecoration(new DividerItemDecoration(getContext(), 1));
 
         //recyclerview_right
         fenleiRecyclerviewRight.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         fenleiRecyclerviewRight.addItemDecoration(new DividerItemDecoration(getContext(), 1));
-
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        fenleiPresenter = new FenleiPresenter(this);
+        fenleiPresenter.getData();
+
+        fenleiZiPresenter = new FenleiZiPresenter(this);
+        fenleiZiPresenter.getZiData("1");
     }
 
     @Override
@@ -95,11 +99,7 @@ public class FenleiFragment extends Fragment implements FenleiviewCallBack, Fenl
         fenleiRecyclerviewLeftAdapter.setItemOnClickListener(new fenleiRecyclerviewLeftAdapter.MyItemOnClickListener() {
             @Override
             public void onItemOnClick(View view, int postion) {
-                Toast.makeText(getContext(),postion+"",Toast.LENGTH_SHORT).show();
-
                 fenleiZiPresenter.getZiData(fenleileftBean.getData().get(postion).getCid()+"");
-
-                Log.i("-----", "onItemOnClick: "+"cid打印");
             }
         });
     }

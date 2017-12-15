@@ -10,11 +10,7 @@
         android:id="@+id/framelayout"
         android:layout_above="@+id/radio_group"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
-
+        android:layout_height="match_parent">
     </FrameLayout>
     <RadioGroup
         android:id="@+id/radio_group"
